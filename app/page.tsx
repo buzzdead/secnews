@@ -5,7 +5,7 @@ import { PostProps } from "./components/post";
 import styles from './page.module.css';
 import Image from 'next/image';
 
-export const getPosts = async () => {
+const getPosts = async () => {
   const posts = await prisma.post.findMany({
     where: { published: true },
     include: {
