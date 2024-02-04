@@ -19,7 +19,7 @@ const getPost = async (id: string) => {
   
 };
 
-const Post: React.FC<PostProps> = async () => {
+const page: React.FC<PostProps> = async () => {
   const post = await getPost("cls5tibwp0001g2xj103tnfd2")
   console.log(post)
   let title = post?.title
@@ -40,4 +40,4 @@ const Post: React.FC<PostProps> = async () => {
   )
 }
 
-export default Post
+export default page
