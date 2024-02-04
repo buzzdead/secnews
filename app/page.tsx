@@ -25,7 +25,7 @@ const page = async () => {
       <Image style={{all: 'initial'}} src="/clean-port (1).png" alt="Vercel Logo" height={400} width={1200}  className={styles.logo} />
       <h1>Nyheter innen sikkerhet</h1>
       <div className={styles.cards}>
-      {feed.map((post) => <Post post={post as PostProps} />)}
+      {feed.map((post, id) => <Post key={id} post={post as PostProps} />)}
       </div>
     </main>
   );

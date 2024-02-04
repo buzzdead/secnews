@@ -32,7 +32,9 @@ const Post: React.FC<PostProps> = async () => {
       <div>
         <h2>{title}</h2>
         <p>By {post?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={post?.content} />
+        <ReactMarkdown>
+          {post?.content}
+        </ReactMarkdown>
       </div>
     </div>
   )
