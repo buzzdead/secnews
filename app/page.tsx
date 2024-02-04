@@ -1,8 +1,6 @@
-import Link from 'next/link';
-import prisma from '../lib/prisma'
+import prisma from "../lib/prisma";
 import Post from "./components/post";
-import styles from './page.module.css';
-import Image from 'next/image';
+import Image from "next/image";
 
 type PostProps = {
   id: string;
@@ -24,21 +22,36 @@ const getPosts = async () => {
       },
     },
   });
-  return posts
+  return posts;
 };
-
 
 const page = async () => {
   const feed = await getPosts();
   return (
-    <main className={styles.main}>
-      <Image style={{all: 'initial'}} src="/clean-port (1).png" alt="Vercel Logo" height={400} width={1200}  className={styles.logo} />
-      <h1>Nyheter innen sikkerhet</h1>
-      <div className={styles.cards}>
-      {feed.map((post, id) => <Post key={id} post={post as PostProps} />)}
-      </div>
-    </main>
+    <div>
+      <header className="container mx-auto px-4 py-12">
+        <div className="flex flex-col items-center text-center">
+          <h1 className="text-4xl font-bold mb-4">
+            How to Clean Your Charging Port in 5 Easy Steps
+          </h1>
+          <a
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            href="#"
+          >
+            View Post
+          </a>
+        </div>
+      </header>
+      <main className="container mx-auto px-20 py-8">
+        <h2 className="text-3xl font-bold mb-6">Nyheter</h2>
+        <div className="grid grid-cols-3 gap-6">
+          {feed.map((post, id) => (
+            <Post key={id} post={post as PostProps} />
+          ))}
+        </div>
+      </main>
+    </div>
   );
-}
+};
 
 export default page;

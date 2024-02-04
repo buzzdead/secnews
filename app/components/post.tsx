@@ -1,7 +1,6 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
 import DeletePostButton from "./deletepostbutton";
-import styles from "../page.module.css";
 import Image from "next/image";
 
 type PostProps = {
@@ -18,18 +17,21 @@ type PostProps = {
 const Post: React.FC<{ post: PostProps }> = ({ post }) => {
   const authorName = post.author ? post.author.name : "Unknown author";
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <div className="bg-gray-800 p-4 rounded-lg flex flex-col items-center max-h-[500px] overflow-hidden">
+      <div className="mb-4 flex justify-center items-center">
       <Image
         style={{ all: "initial", objectFit: "cover", overflow: "hidden" }}
         src="/clean-port (1).png"
         alt="Vercel Logo"
         height={250}
-        width={250}
+        width={300}
       />
-      <div className={styles.card}>
-        <h2>{post.title}</h2>
+      </div>
+      <div>
+
+        <h3 className="text-3xl font-bold mb-4 text-gray-300">{post.title}</h3>
         <small>By {authorName}</small>
-        <ReactMarkdown>
+        <ReactMarkdown className="text-gray-400 overflow-ellipsis overflow-hidden">
           {post.content}
         </ReactMarkdown>
         {post.editMode && <DeletePostButton postId={post.id} />}
