@@ -4,7 +4,7 @@ import DeletePostButton from "./deletepostbutton";
 import styles from "../page.module.css";
 import Image from "next/image";
 
-export type PostProps = {
+type PostProps = {
   id: string;
   title: string;
   author: {

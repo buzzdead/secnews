@@ -1,9 +1,19 @@
 import Link from 'next/link';
 import prisma from '../lib/prisma'
 import Post from "./components/post";
-import { PostProps } from "./components/post";
 import styles from './page.module.css';
 import Image from 'next/image';
+
+type PostProps = {
+  id: string;
+  title: string;
+  author: {
+    name: string;
+  } | null;
+  content: string;
+  published: boolean;
+  editMode?: boolean;
+};
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
