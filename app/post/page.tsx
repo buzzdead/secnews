@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown"
 import { PostProps } from "../components/post"
 import prisma from '../../lib/prisma'
 
-export const getPost = async (id: string) => {
+const getPost = async (id: string) => {
   const post = await prisma.post.findUnique({
     where: {
       id: String(id),
