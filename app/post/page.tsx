@@ -2,17 +2,6 @@ import React from "react"
 import ReactMarkdown from "react-markdown"
 import prisma from '../../lib/prisma'
 
-type PostProps = {
-  id: string;
-  title: string;
-  author: {
-    name: string;
-  } | null;
-  content: string;
-  published: boolean;
-  editMode?: boolean;
-};
-
 const getPost = async (id: string) => {
   const post = await prisma.post.findUnique({
     where: {
@@ -29,7 +18,7 @@ const getPost = async (id: string) => {
   
 };
 
-const page: React.FC<PostProps> = async () => {
+const page = async () => {
   const post = await getPost("cls5tibwp0001g2xj103tnfd2")
   console.log(post)
   let title = post?.title
