@@ -1,10 +1,19 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  padding: 6rem;
+  padding: 4rem;
+  gap: 1.5rem;
   min-height: 100vh;
+}
+
+.main h1 {
+  font-size: 2.5rem;
+  margin-top: 25px;
+  font-weight: 700;
+  color: rgb(63, 63, 63);
+  text-align: center;
 }
 
 .description {
@@ -46,11 +55,21 @@
   width: var(--max-width);
 }
 
+.cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
 .card {
-  padding: 1rem 1.2rem;
+  padding: 0.25rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
+  max-width: 400px;
+  max-height: 200px;
   transition: background 200ms, border 200ms;
 }
 
@@ -62,15 +81,20 @@
 .card h2 {
   font-weight: 600;
   margin-bottom: 0.7rem;
+  color: rgb(63, 63, 63);
+}
+
+.card small {
+  color: rgb(0, 93, 133);
 }
 
 .card p {
-  margin: 0;
-  opacity: 0.6;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  max-width: 30ch;
-  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to display */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(0, 0, 0);
 }
 
 .center {
@@ -107,12 +131,13 @@
 
 .logo {
   position: relative;
+  object-fit: cover;
+  overflow: hidden;
 }
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
-    background: rgba(var(--card-rgb), 0.1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
+    border: 1px solid rgba(var(--card-border-rgb), 0);
   }
 
   .card:hover span {
@@ -145,6 +170,8 @@
 
   .card h2 {
     margin-bottom: 0.5rem;
+    color: rgb(60, 60, 60);
+    font-weight: 600;
   }
 
   .center {
@@ -227,4 +254,27 @@
   to {
     transform: rotate(0deg);
   }
+}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+  background-color: rgb(54, 54, 54);
+}
+
+.navbar li {
+  list-style-type: none;
+  margin: 0 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #fcf9f9;
+  font-size: 18px;
+  transition: border 0.3s ease;
+}
+
+.navbar a:hover {
+  border-bottom: 1px solid #7e7e7e;
 }
