@@ -1,17 +1,9 @@
-import prisma from "../lib/prisma";
-import Post from "./components/post";
-import Image from "next/image";
-
-type PostProps = {
-  id: string;
-  title: string;
-  author: {
-    name: string;
-  } | null;
-  content: string;
-  published: boolean;
-  editMode?: boolean;
-};
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import Posts from "./components/posts";
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
@@ -20,38 +12,25 @@ const getPosts = async () => {
       author: {
         select: { name: true },
       },
+      tags: {
+          select: { name: true, id: true }
+        
+      }
     },
   });
   return posts;
 };
 
-const page = async () => {
-  const feed = await getPosts();
-  return (
-    <div>
-      <header className="container mx-auto px-4 py-12">
-        <div className="flex flex-col items-center text-center">
-          <h1 className="text-4xl font-bold mb-4">
-            How to Clean Your Charging Port in 5 Easy Steps
-          </h1>
-          <a
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            href="#"
-          >
-            View Post
-          </a>
-        </div>
-      </header>
-      <main className="container mx-auto px-20 py-8">
-        <h2 className="text-3xl font-bold mb-6">Nyheter</h2>
-        <div className="grid grid-cols-3 gap-6">
-          {feed.map((post, id) => (
-            <Post key={id} post={post as PostProps} />
-          ))}
-        </div>
-      </main>
-    </div>
-  );
-};
+export default async function Home() {
+  const queryClient = new QueryClient();
 
-export default page;
+  await queryClient.prefetchQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Posts />
+    </HydrationBoundary>
+  );
+}
