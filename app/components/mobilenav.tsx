@@ -16,8 +16,8 @@ const MobileNav: React.FC<Props> = ({ containerStyles, tags }: Props) => {
         <SheetContent className="border-l border-gray-600 bg-gray-900">
             <div className="flex flex-col items-center align-center gap-y-4 mt-5">
               
-          {tags.map((t) => {
-            return <div>{t.name}</div>;
+          {tags.map((t, id) => {
+            return <div key={id}>{t.name}</div>;
           })}
           
           </div>
