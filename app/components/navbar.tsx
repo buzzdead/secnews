@@ -1,22 +1,22 @@
 import React from 'react';
-import prisma from '../../lib/prisma';
-import styles from '../page.module.css'
+import Link from 'next/link';
 
-const navbarItems = async () => {
-    return await prisma.tag.findMany()
+interface Props {
+    containerStyles: string
+    tags: {id: string, name: string}[]
 }
 
-const Navbar: React.FC = async () => {
-    const tags = await navbarItems()
+const Navbar: React.FC<Props> = async ({containerStyles, tags}: Props) => {
     return (
-        <nav>
-            <ul className={styles.navbar}>
+        <nav className={containerStyles}>
+            <div className="flex space-x-4">
+                <Link key={'home'}  style={{transition: "background 0.3s"}} className="block py-2 px-4 text-white hover:bg-gray-700" href="../">Hjem</Link>
                 {tags.map((tag, index) => (
-                    <li key={index} >
-                        <a href="#" >{tag.name}</a>
-                    </li>
+                    <Link key={index} style={{transition: "background 0.3s"}} className="block py-2 px-4 text-white hover:bg-gray-700" href={`/tags/${tag.name}`}>
+                        {tag.name}
+                    </Link>
                 ))}
-            </ul>
+            </div>
         </nav>
     );
 };

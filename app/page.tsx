@@ -1,19 +1,9 @@
-import Link from 'next/link';
-import prisma from '../lib/prisma'
-import Post from "./components/post";
-import styles from './page.module.css';
-import Image from 'next/image';
-
-type PostProps = {
-  id: string;
-  title: string;
-  author: {
-    name: string;
-  } | null;
-  content: string;
-  published: boolean;
-  editMode?: boolean;
-};
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import Posts from "./components/posts";
 
 const getPosts = async () => {
   const posts = await prisma.post.findMany({
@@ -22,23 +12,25 @@ const getPosts = async () => {
       author: {
         select: { name: true },
       },
+      tags: {
+          select: { name: true, id: true }
+        
+      }
     },
   });
-  return posts
+  return posts;
 };
 
+export default async function Home() {
+  const queryClient = new QueryClient();
 
-const page = async () => {
-  const feed = await getPosts();
+  await queryClient.prefetchQuery({
+    queryKey: ["posts"],
+    queryFn: getPosts,
+  });
   return (
-    <main className={styles.main}>
-      <Image style={{all: 'initial'}} src="/clean-port (1).png" alt="Vercel Logo" height={400} width={1200}  className={styles.logo} />
-      <h1>Nyheter innen sikkerhet</h1>
-      <div className={styles.cards}>
-      {feed.map((post, id) => <Post key={id} post={post as PostProps} />)}
-      </div>
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Posts />
+    </HydrationBoundary>
   );
 }
-
-export default page;

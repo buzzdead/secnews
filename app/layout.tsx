@@ -4,6 +4,8 @@ import "./globals.css";
 import 'tailwindcss/tailwind.css';
 import SessionWrapper from "./components/sessionwrapper";
 import Navbar from "./components/navbar";
+import Header from "./components/header";
+import Providers from "@/lib/Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +22,7 @@ export default function RootLayout({
   return (
     <SessionWrapper>
     <html lang="en">
-      <body className={inter.className}><Navbar />{children}</body>
+      <body className={inter.className}><Providers><Header />{children}</Providers></body>
     </html>
     </SessionWrapper>
   );

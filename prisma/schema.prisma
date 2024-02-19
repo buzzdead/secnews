@@ -17,11 +17,14 @@ model Post {
   published Boolean @default(false)
   author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
+  tagId     String?
+  tags      Tag[]
 }
 
 model Tag {
   id        String     @default(cuid()) @id
   name      String
+  posts     Post[]
 }
 
 model Account {
