@@ -1,5 +1,4 @@
 "use client";
-import styles from "@/app/page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -39,7 +38,7 @@ export default function AddPost() {
   };
 
   return (
-    <main className={styles.main}>
+    <main>
       <Link href={"/"}>View Feed</Link>
       <h1>Add Post</h1>
       <form onSubmit={handleSubmit}>
